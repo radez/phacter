@@ -1,16 +1,16 @@
 #!/usr/bin/python
-import platform,sys,urllib,httplib
-platform_name = platform.system()
-#import_module = __import__('speed.phacter.%s' % platform_name,globals(),locals(),['%s' % platform_name ])
-#import_module = __import__('phacter.%s' % platform_name,globals(),locals(),['%s' % platform_name ])
-import_module = __import__('%s' % platform_name,globals(),locals(),['%s' % platform_name ])
+import platform
+import sys
+import urllib
+import httplib
+
+platform_name = platform.system().lower()
+platform_obj = __import__('phacter.%s' % platform_name, globals() ,locals(), ['%s' % platform_name ])
 
 
 class phacter:
 
     def getFacts(self):
-        platform_obj = getattr(import_module,platform_name)()
-
         facts = {}
         facts['kernel'] = platform_name
 

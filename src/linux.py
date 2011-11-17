@@ -7,7 +7,7 @@ import subprocess
 import md5
 import uuid
 
-from phacter import utils
+from phacter.utils import linux as utils
 
 def ipaddress():
     return netifaces.ifaddresses('eth0')[2][0]['addr']
@@ -101,7 +101,7 @@ def operatingsystemrelease():
         f = open('/etc/debian_version','r')
         v = f.read()
         f.close()
-    return v
+        return v
     elif operatingsystem == 'Gentoo':
         f = open('/etc/gentoo-release','r')
         v = f.read() 
@@ -155,8 +155,7 @@ def manufacturer():
                 return m
 
 def dealeraddress():
-    u = utils()
-    return ":".join(u.getDealerAddress())
+    return ":".join(utils.getDealerAddress())
 
 
 
