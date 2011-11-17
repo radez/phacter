@@ -1,0 +1,17 @@
+ipaddress_eth0
+macaddress
+macaddress_eth0
+macaddress_eth1
+memoryfree
+memorysize
+netmask
+netmask_eth0
+operatingsystemrelease
+processor0
+processor1
+rubysitedir
+sshdsakey
+sshrsakey
+swapfree
+swapsize
+virtual
