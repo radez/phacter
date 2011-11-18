@@ -1,4 +1,10 @@
-#!/usr/bin/python
+# This software may be freely redistributed under the terms of the GNU
+# general public license.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 import platform
 import sys
 import urllib
@@ -19,9 +25,14 @@ class Lazy(object):
 
 class Phacter(object):
 
+    __version__ = '0.2.0'
+    __license__ = 'GPLv2'
+    __author__ = 'Dan Radez <dradez@redhat.com>'
+
     facts = ['kernel']
     platform_name = platform.system().lower()
     kernel = property(lambda self: self.platform_name)
+    phacterversion = __version__
 
     def __init__(self):
         platform_imp = __import__('phacter', None, None, [self.platform_name])

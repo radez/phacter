@@ -1,11 +1,18 @@
+# This software may be freely redistributed under the terms of the GNU
+# general public license.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
 import netifaces
 import platform
 import os
 import socket
 import re
 import subprocess
-import md5
 import uuid as _uuid
+from hashlib import md5
 
 from phacter.utils import linux as utils
 
@@ -23,8 +30,6 @@ def architecture():
     else:
         return arch
 
-def phacterversion():
-    return '0.1'
 def interfaces():
     i = netifaces.interfaces()
     return ",".join([n for n in i if 'lo' not in n])

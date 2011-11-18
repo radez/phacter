@@ -1,0 +1,9 @@
+include AUTHORS
+include LICENSE
+include MANIFEST.in
+include COPYING
+include *.spec
+include bin/phacter
+recursive-include doc *
+recursive-include src/phacter *.py
+recursive-include src/phacter/utils *.py
