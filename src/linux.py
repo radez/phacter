@@ -5,10 +5,9 @@ import socket
 import re
 import subprocess
 import md5
+import uuid as _uuid
 
-from uuid import uuid4
-
-#from phacter.utils import linux as utils
+from phacter.utils import linux as utils
 
 def ipaddress():
     return netifaces.ifaddresses('eth0')[2][0]['addr']
@@ -65,12 +64,11 @@ def permid():
     m = md5.new(netifaces.ifaddresses('eth0')[17][0]['addr'].lower())
     return m.hexdigest()
 def uuid():
-    return str(uuid4())
+    return str(_uuid.uuid4())
 def operatingsystem():
-    l = Linux()
-    lsbdistid = l.lsbdistid()
-    if lsbdistid == 'Ubuntu':
-        return lsbdistid
+    bdistid = lsbdistid()
+    if bdistid == 'Ubuntu':
+        return bdistid
     elif os.path.isfile('/etc/debian_version'):
         return 'Debian'
     elif os.path.isfile('/etc/gentoo-release'):
@@ -96,19 +94,18 @@ def operatingsystem():
             return 'SuSE'
 
 def operatingsystemrelease():
-    l = Linux()
-    operatingsystem = l.operatingsystem()
-    if operatingsystem == 'Debian':
+    os = operatingsystem()
+    if os == 'Debian':
         f = open('/etc/debian_version','r')
         v = f.read()
         f.close()
         return v
-    elif operatingsystem == 'Gentoo':
+    elif os == 'Gentoo':
         f = open('/etc/gentoo-release','r')
         v = f.read() 
         f.close()
         return v
-    elif operatingsystem == 'Fedora':
+    elif os == 'Fedora':
         f = open('/etc/fedora-release','r')
         for line in f.readlines():
             if 'Rawhide' in line:
@@ -123,11 +120,11 @@ def operatingsystemrelease():
         return 'Mandriva'
     elif os.path.isfile('/etc/mandrake-release'):
         return 'Mandrake'
-    elif operatingsystem == 'CentOS':
+    elif os == 'CentOS':
         f = open('/etc/redhat-release','r')
         f.close()
         return '5.2'
-    elif operatingsystem == 'RedHat':
+    elif os == 'RedHat':
         f = open('/etc/redhat-release','r')
         for line in f.readlines():
             if 'Rawhide' in line:
