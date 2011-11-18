@@ -39,7 +39,7 @@ class Phacter(object):
         platform_obj = getattr(platform_imp, self.platform_name)
 
         for method in dir(platform_obj):
-            if '__' not in method:
+            if method[0] is not '_':
                 call = getattr(platform_obj, method)
                 if type(call) is not ModuleType:
                     setattr(self.__class__, method, Lazy(call))

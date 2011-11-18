@@ -12,7 +12,7 @@ import socket
 import re
 import subprocess
 import uuid as _uuid
-from hashlib import md5
+from hashlib import md5 as _md5
 
 from phacter.utils import linux as utils
 
@@ -66,7 +66,7 @@ def lsbmajdistrelease():
 def ps():
     return 'ps -ef'
 def permid():
-    m = md5.new(netifaces.ifaddresses('eth0')[17][0]['addr'].lower())
+    m = _md5.new(netifaces.ifaddresses('eth0')[17][0]['addr'].lower())
     return m.hexdigest()
 def uuid():
     return str(_uuid.uuid4())
@@ -104,12 +104,12 @@ def operatingsystemrelease():
         f = open('/etc/debian_version','r')
         v = f.read()
         f.close()
-        return v
+        return v.strip()
     elif os == 'Gentoo':
         f = open('/etc/gentoo-release','r')
         v = f.read() 
         f.close()
-        return v
+        return v.strip()
     elif os == 'Fedora':
         f = open('/etc/fedora-release','r')
         for line in f.readlines():
@@ -120,7 +120,7 @@ def operatingsystemrelease():
             else:
                 value = 'Unknown'
         f.close()
-        return value
+        return value.strip()
     elif os.path.isfile('/etc/mandriva-release'):
         return 'Mandriva'
     elif os.path.isfile('/etc/mandrake-release'):
@@ -139,7 +139,7 @@ def operatingsystemrelease():
             else:
                 value = 'Unknown'
         f.close()
-        return value
+        return value.strip()
     elif os.path.isfile('/etc/SuSE-release'):
         f = open('/etc/SuSE-release','r')
         if re.compile('SUSE LINUX Enterprise Server',re.I).search(f.read()):
