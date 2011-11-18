@@ -5,9 +5,10 @@ import socket
 import re
 import subprocess
 import md5
-import uuid
 
-from phacter.utils import linux as utils
+from uuid import uuid4
+
+#from phacter.utils import linux as utils
 
 def ipaddress():
     return netifaces.ifaddresses('eth0')[2][0]['addr']
@@ -64,7 +65,7 @@ def permid():
     m = md5.new(netifaces.ifaddresses('eth0')[17][0]['addr'].lower())
     return m.hexdigest()
 def uuid():
-    return str(uuid.uuid4())
+    return str(uuid4())
 def operatingsystem():
     l = Linux()
     lsbdistid = l.lsbdistid()
