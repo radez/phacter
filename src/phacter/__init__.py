@@ -29,7 +29,7 @@ class Phacter(object):
     __license__ = 'GPLv2'
     __author__ = 'Dan Radez <dradez@redhat.com>'
 
-    facts = ['kernel']
+    phacts = ['kernel']
     platform_name = platform.system().lower()
     kernel = property(lambda self: self.platform_name)
     phacterversion = __version__
@@ -43,9 +43,14 @@ class Phacter(object):
                 call = getattr(platform_obj, method)
                 if type(call) is not ModuleType:
                     setattr(self.__class__, method, Lazy(call))
-                    self.facts.append(method)
-        self.facts.sort()
+                    self.phacts.append(method)
+        self.phacts.sort()
 
+    def __getitem__(self, key):
+        if hasattr(self, key):
+            return getattr(self, key)
+        else:
+            return ''
 
 if __name__ == 'phacter':
     sys.modules[__name__] = Phacter()

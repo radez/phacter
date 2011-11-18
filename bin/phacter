@@ -29,10 +29,10 @@ def updateFacts(self):
 
 def main():
     if len(sys.argv) == 1:
-        for fact in phacter.facts:
-            print fact
+        for phact in phacter.phacts:
+            print '%s => %s' % (phact, phacter[phact])
     else:
-        print getattr(phacter, sys.argv[1])
+        print phacter[sys.argv[1]]
     
 if __name__ == '__main__':
     main()

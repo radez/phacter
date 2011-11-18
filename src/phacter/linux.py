@@ -157,8 +157,8 @@ def manufacturer():
                 m = line.split(':')[1].strip()
                 return m
 
-def dealeraddress():
-    return ":".join(utils.getDealerAddress())
+#def dealeraddress():
+#    return ":".join(utils.getDealerAddress())
 
 
 
