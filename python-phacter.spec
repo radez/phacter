@@ -5,7 +5,7 @@
 Name:           python-phacter
 Version:        0.2.0
 Release:        1%{?dist}
-Summary:        System fact lookup tool
+Summary:        System fact look up tool
 
 Group:          Applications/System
 License:        GPLv2
@@ -19,7 +19,7 @@ Requires:       python, python-netifaces
 
 
 %description
-A python port of ruby's facter
+A python tool to report system facts
 
 
 %prep
@@ -48,7 +48,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_usr}/bin/phacter
 %{python_sitelib}/*
 %dir %{_var}/lib/phacter/
-#%ghost %{python_sitelib}/*egg-info
 
 
 %changelog

@@ -13,6 +13,10 @@ import httplib
 from types import ModuleType
 
 class Lazy(object):
+    '''
+    A decorator that sets a static function as an
+    available property on a class and executes it lazily
+    '''
     def __init__(self, func):
         self._func = func
 
@@ -24,7 +28,9 @@ class Lazy(object):
         return value
 
 class Phacter(object):
-
+    '''
+    The main Phacter class
+    '''
     __version__ = '0.2.0'
     __license__ = 'GPLv2'
     __author__ = 'Dan Radez <dradez@redhat.com>'
@@ -35,6 +41,9 @@ class Phacter(object):
     phacterversion = __version__
 
     def __init__(self):
+        '''
+        load facts platform specific
+        '''
         platform_imp = __import__('phacter', None, None, [self.platform_name])
         platform_obj = getattr(platform_imp, self.platform_name)
 
@@ -47,10 +56,14 @@ class Phacter(object):
         self.phacts.sort()
 
     def __getitem__(self, key):
+        '''
+        makes me subscriptable
+        '''
         if hasattr(self, key):
             return getattr(self, key)
         else:
             return ''
 
 if __name__ == 'phacter':
+    # replace the phacter module in memory with the class
     sys.modules[__name__] = Phacter()
