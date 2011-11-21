@@ -31,6 +31,9 @@ def main():
     if len(sys.argv) == 1:
         for phact in phacter.phacts:
             print '%s => %s' % (phact, phacter[phact])
+    elif sys.argv[2:]:
+        for phact in sys.argv[2:]:
+            print '%s => %s' % (phact, phacter[phact])
     else:
         print phacter[sys.argv[1]]
     
