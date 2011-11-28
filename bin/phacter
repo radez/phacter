@@ -10,6 +10,7 @@ import sys
 import urllib
 import httplib
 import phacter
+import argparse
 
 def updateFacts(self):
     f = self.getFacts()
@@ -25,9 +26,37 @@ def updateFacts(self):
     conn.close
     return data
         
+def parse_args():
+    desc_txt = 'Phacter reports facts (phacts) about a system. If a ' + \
+               'phact is not specified then all phacts will be returned. ' + \
+               'Multiple phacts can be passed. Phacter is python.'
+
+    parser = argparse.ArgumentParser(description=desc_txt)
+    parser.add_argument('-l', '--list',
+        action='store_true', default=False, required=False,
+        help='Only list the phacts, don\'t evauate their values.')
+    #parser.add_argument('-y', '--yaml',
+    #    action='store_true', default=False, required=False,
+    #    help='Return phact list in yaml. Requires PyYAML')
+    #parser.add_argument('-j', '--json',
+    #    action='store_true', default=False, required=False,
+    #    help='Return phact list in json.')
+    parser.add_argument('-v', '--version', dest='version',
+        action='store_true', default=False, required=False,
+        help='Print the version and exit.')
+    parser.add_argument('phact', nargs='*',
+        help='phact name, use --list for a list of phacts.')
+
+    return parser.parse_args()
 
 
 def main():
+    args = parse_args()
+
+    if args.version:
+        print phacter.phacterversion
+        sys.exit()
+
     if len(sys.argv) == 1:
         for phact in phacter.phacts:
             print '%s => %s' % (phact, phacter[phact])

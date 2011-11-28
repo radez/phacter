@@ -2,6 +2,7 @@ include AUTHORS
 include LICENSE
 include MANIFEST.in
 include COPYING
+include phacter.1
 include *.spec
 include bin/phacter
 recursive-include doc *

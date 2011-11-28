@@ -88,6 +88,9 @@ class RPMBuildCommand(SetupBuildCommand):
             if os.system('./setup.py sdist'):
                 raise Exception("Couldn't call ./setup.py sdist!")
                 sys.exit(1)
+            if os.system('./setup.py man'):
+                raise Exception("Couldn't call ./setup.py man!")
+                sys.exit(1)
             if not os.access('dist/rpms/', os.F_OK):
                 os.mkdir('dist/rpms/')
             dist_dir = os.path.join(os.getcwd(), 'dist')
@@ -100,6 +103,18 @@ class RPMBuildCommand(SetupBuildCommand):
                 raise Exception("Could not create the rpms!")
         except Exception, ex:
             sys.stderr.write(str(ex))
+
+
+class ManCommand(SetupBuildCommand):
+    """
+    Generate the man page
+    """
+    description = "generate the man page"
+
+    def run(self):
+        man_cmd = 'help2man --no-info bin/phacter > phacter.1'
+        if os.system(man_cmd):
+            raise Exception("Could not create the man page!")
 
 
 class TestCommand(SetupBuildCommand):
@@ -182,6 +197,7 @@ setup(
     #    [('lib/phacter', os.path.join('src', 'phacter'), True)]),
     zip_safe=False,
     cmdclass={'rpm': RPMBuildCommand,
+              'man': ManCommand,
               'doc': SphinxCommand,
               'viewdoc': ViewDocCommand,
               'test': TestCommand})
