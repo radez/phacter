@@ -32,9 +32,8 @@ A python tool to report system facts
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/%{_usr}/bin
-mkdir -p $RPM_BUILD_ROOT/%{_var}/lib/phacter
-mkdir -p $RPM_BUILD_ROOT/%{python_sitelib}/phacter
+
+mkdir -p $RPM_BUILD_ROOT/%{_sharedstatedir}/phacter
 
 %{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
 
@@ -45,9 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING LICENSE
-%{_usr}/bin/phacter
+%{_bindir}/phacter
 %{python_sitelib}/*
-%dir %{_var}/lib/phacter/
+%dir %{_sharedstatedir}/phacter
 
 
 %changelog
