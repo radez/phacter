@@ -10,6 +10,7 @@ Summary:        System fact look up tool
 Group:          Applications/System
 License:        GPLv2
 URL:            https://github.com/radez/phacter
+# source tarball can also be generated with ./setup.py rpm
 Source0:        http://radez.fedorapeople.org/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 

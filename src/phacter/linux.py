@@ -50,17 +50,28 @@ def kernelrelease():
     return platform.uname()[2]
 def kernelversion():
     return platform.uname()[2].split('-')[0]
+def _lsbcheck(func):
+    s = subprocess.Popen(['/usr/bin/which', 'lsb_release'],stderr=subprocess.PIPE,stdout=subprocess.PIPE)
+    if s.stdout.read().strip():
+        return func
+    return None
+@_lsbcheck
 def lsbdistcodename():
     return os.popen('lsb_release -c').read().strip().replace('\t','').split(':')[1]
+@_lsbcheck
 def lsbdistdescription():
     return os.popen('lsb_release -d').read().strip().replace('\t','').split(':')[1]
+@_lsbcheck
 def lsbdistid():
     return os.popen('lsb_release -i').read().strip().replace('\t','').split(':')[1]
+@_lsbcheck
 def lsbdistrelease():
     return os.popen('lsb_release -r').read().strip().replace('\t','').split(':')[1]
+@_lsbcheck
 def lsbrelease():
     lsb_release = os.popen('lsb_release -v').read().strip().replace('\t','').split(':')[1:]
     return ":".join(lsb_release)
+@_lsbcheck
 def lsbmajdistrelease():
     return os.popen('lsb_release -r').read().strip().replace('\t','').split(':')[1].split('.')[0]
 def ps():
